@@ -1,0 +1,151 @@
+[
+    {
+        "label": "joblib",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "joblib",
+        "description": "joblib",
+        "detail": "joblib",
+        "documentation": {}
+    },
+    {
+        "label": "pandas",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "pandas",
+        "description": "pandas",
+        "detail": "pandas",
+        "documentation": {}
+    },
+    {
+        "label": "requests",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "requests",
+        "description": "requests",
+        "detail": "requests",
+        "documentation": {}
+    },
+    {
+        "label": "os",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "os",
+        "description": "os",
+        "detail": "os",
+        "documentation": {}
+    },
+    {
+        "label": "logger",
+        "importPath": "loguru",
+        "description": "loguru",
+        "isExtraImport": true,
+        "detail": "loguru",
+        "documentation": {}
+    },
+    {
+        "label": "FastAPI",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "jsonable_encoder",
+        "importPath": "fastapi.encoders",
+        "description": "fastapi.encoders",
+        "isExtraImport": true,
+        "detail": "fastapi.encoders",
+        "documentation": {}
+    },
+    {
+        "label": "BaseModel",
+        "importPath": "pydantic",
+        "description": "pydantic",
+        "isExtraImport": true,
+        "detail": "pydantic",
+        "documentation": {}
+    },
+    {
+        "label": "test_model_correctness",
+        "kind": 2,
+        "importPath": "tests.test_model_correctness",
+        "description": "tests.test_model_correctness",
+        "peekOfCode": "def test_model_correctness():\n    clf = joblib.load(f\"{MODEL_DIR}/model.pkl\")\n    data = {\n        \"MSSubClass\": 60,\n        \"MSZoning\": \"RL\",\n        \"LotArea\": 7844,\n        \"LotConfig\": \"Inside\",\n        \"BldgType\": \"1Fam\",\n        \"OverallCond\": 7,\n        \"YearBuilt\": 1978,",
+        "detail": "tests.test_model_correctness",
+        "documentation": {}
+    },
+    {
+        "label": "MODEL_DIR",
+        "kind": 5,
+        "importPath": "tests.test_model_correctness",
+        "description": "tests.test_model_correctness",
+        "peekOfCode": "MODEL_DIR = \"models\"\ndef test_model_correctness():\n    clf = joblib.load(f\"{MODEL_DIR}/model.pkl\")\n    data = {\n        \"MSSubClass\": 60,\n        \"MSZoning\": \"RL\",\n        \"LotArea\": 7844,\n        \"LotConfig\": \"Inside\",\n        \"BldgType\": \"1Fam\",\n        \"OverallCond\": 7,",
+        "detail": "tests.test_model_correctness",
+        "documentation": {}
+    },
+    {
+        "label": "headers",
+        "kind": 5,
+        "importPath": "client",
+        "description": "client",
+        "peekOfCode": "headers = {\n    'accept': 'application/json',\n    'Content-Type': 'application/json',\n}\njson_data = {\n    'MSSubClass': 60,\n    'MSZoning': 'RL',\n    'LotArea': 7844,\n    'LotConfig': 'Inside',\n    'BldgType': '1Fam',",
+        "detail": "client",
+        "documentation": {}
+    },
+    {
+        "label": "json_data",
+        "kind": 5,
+        "importPath": "client",
+        "description": "client",
+        "peekOfCode": "json_data = {\n    'MSSubClass': 60,\n    'MSZoning': 'RL',\n    'LotArea': 7844,\n    'LotConfig': 'Inside',\n    'BldgType': '1Fam',\n    'OverallCond': 7,\n    'YearBuilt': 1978,\n    'YearRemodAdd': 1978,\n    'Exterior1st': 'HdBoard',",
+        "detail": "client",
+        "documentation": {}
+    },
+    {
+        "label": "response",
+        "kind": 5,
+        "importPath": "client",
+        "description": "client",
+        "peekOfCode": "response = requests.post('http://localhost:30001/predict', headers=headers, json=json_data)\nif response.status_code == 200:\n    print(\"Successful!\")\n    print(response.json())\nelse:\n    print(\"Failed to get prediction!\")",
+        "detail": "client",
+        "documentation": {}
+    },
+    {
+        "label": "HouseInfo",
+        "kind": 6,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "class HouseInfo(BaseModel):\n    MSSubClass : int = 60\n    MSZoning : str = \"RL\"\n    LotArea : int = 7844\n    LotConfig : str = \"Inside\"\n    BldgType : str = \"1Fam\"\n    OverallCond : int = 7\n    YearBuilt : int = 1978\n    YearRemodAdd : int = 1978\n    Exterior1st : str = \"HdBoard\"",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "predict",
+        "kind": 2,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "def predict(data : HouseInfo):    \n    # Predicting the class\n    logger.info(\"Make predictions...\")\n    # Convert data to pandas DataFrame and make predictions\n    price = clf.predict(\n        pd.DataFrame(\n            jsonable_encoder(data),\n            index=[0]\n        )\n    )[0]",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "app",
+        "kind": 5,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "app = FastAPI()\n# Creating class to define the request body\n# and the type hints of each attribute\nclass HouseInfo(BaseModel):\n    MSSubClass : int = 60\n    MSZoning : str = \"RL\"\n    LotArea : int = 7844\n    LotConfig : str = \"Inside\"\n    BldgType : str = \"1Fam\"\n    OverallCond : int = 7",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "clf",
+        "kind": 5,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "clf = joblib.load(\n    os.environ.get('MODEL_PATH', \"models/model.pkl\")\n)\n# Creating an endpoint to receive the data\n# to make prediction on.\n@app.post('/predict')\ndef predict(data : HouseInfo):    \n    # Predicting the class\n    logger.info(\"Make predictions...\")\n    # Convert data to pandas DataFrame and make predictions",
+        "detail": "main",
+        "documentation": {}
+    }
+]
